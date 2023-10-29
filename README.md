@@ -34,3 +34,8 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+1. nextjs
+2. shadcn -> It's a collection of beautifully designed, accessible, and customizable components that you can simply copy and paste into your apps.
+3. clerkauth -> handle authentication. Protects route with provider. add env file.
+4. lucide-react -> lots of icons to use
