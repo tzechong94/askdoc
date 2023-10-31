@@ -39,3 +39,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 2. shadcn -> It's a collection of beautifully designed, accessible, and customizable components that you can simply copy and paste into your apps.
 3. clerkauth -> handle authentication. Protects route with provider. add env file.
 4. lucide-react -> lots of icons to use
+5. NeonDB
+6. drizzleORM and drizzle-kit -> sync schema to neondb
+7. 'use client'
+8. react-dropzone
