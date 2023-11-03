@@ -43,3 +43,14 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 6. drizzleORM and drizzle-kit -> sync schema to neondb
 7. 'use client'
 8. react-dropzone
+9. vectors and embeddings. cosine similarities to find the most similar vector to what's asked. embedding is the vector.
+10. tanstack/react-query to handle data querying from local to server endpoints. React query can cache data and return. Create a provider and wrap app with it.
+11. react-hot-toast
+12. pinecone db
+13. langchain 
+
+
+pinecone terms
+- index -> database to store vectors
+- namespace -> table. segment pdf vector spaces
+- 
