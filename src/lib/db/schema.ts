@@ -31,3 +31,5 @@ export const messages = pgTable("messages", {
 
 // drizzle-orm interacts with db,
 // drizzle-kit utility functions to create migrations and sync database with schema
+
+export type DrizzleChat = typeof chats.$inferSelect;

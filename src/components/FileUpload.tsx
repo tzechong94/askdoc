@@ -6,8 +6,10 @@ import React from "react";
 import { useDropzone } from "react-dropzone";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const FileUpload = () => {
+  const router = useRouter();
   const [uploading, setUploading] = React.useState(false);
   const { isPending, mutate } = useMutation({
     mutationFn: async ({
@@ -43,9 +45,10 @@ const FileUpload = () => {
           return;
         }
         mutate(data, {
-          onSuccess: (data) => {
-            // toast.success(data.message);
-            console.log(data);
+          onSuccess: ({ chat_id }) => {
+            toast.success("chat created");
+            router.push(`/chat/${chat_id}`);
+            // console.log(data);
           },
           onError: (error) => {
             toast.error("Error creating chat" + error);
