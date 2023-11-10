@@ -47,10 +47,23 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 10. tanstack/react-query to handle data querying from local to server endpoints. React query can cache data and return. Create a provider and wrap app with it.
 11. react-hot-toast
 12. pinecone db
-13. langchain 
-
+13. langchain
+14. vercel ai sdk
 
 pinecone terms
+
 - index -> database to store vectors
 - namespace -> table. segment pdf vector spaces
-- 
+
+- obtain pdf
+- split and segment pdf
+- vectorise and embed individual documents
+- store vectors into pineconedb
+
+search
+
+- embed query
+- query pineconedb for similar vectors
+- extract out the metadata of similar vectors
+- feed metadata into openai prompt
+-
