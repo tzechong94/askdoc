@@ -32,7 +32,7 @@ export async function downloadFromS3(file_key: string): Promise<string> {
         // obj.Body?.pipe(fs.createWriteStream(file_name));
       }
     } catch (error) {
-      console.error(error);
+      console.error(error, "s3 get object");
       reject(error);
       return null;
     }

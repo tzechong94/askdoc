@@ -11,7 +11,7 @@ import SubscriptionButton from "@/components/SubscriptionButton";
 
 export default async function Home() {
   const { userId } = await auth();
-  console.log(userId);
+  console.log(userId, "userid");
   const isAuth = !!userId;
   const isPro = await checkSubscription();
   let firstChat;

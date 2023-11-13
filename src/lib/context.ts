@@ -11,14 +11,21 @@ export async function getMatchesFromEmbeddings(
       environment: process.env.PINECONE_ENVIRONMENT!,
       apiKey: process.env.PINECONE_API_KEY!,
     });
-    const pineconeIndex = await client.Index("chatpdf");
-    const namespace = pineconeIndex.namespace(convertToAscii(fileKey));
-    const queryResult = await namespace.query({
-      topK: 5,
+    const pineconeIndex = await client.index("chatpdf");
+    const queryResponse = await pineconeIndex.query({
       vector: embeddings,
+      filter: { fileKey: { $eq: fileKey } },
+      topK: 5,
       includeMetadata: true,
     });
-    return queryResult.matches || [];
+
+    // const namespace = pineconeIndex.namespace(convertToAscii(fileKey));
+    // const queryResult = await namespace.query({
+    //   topK: 5,
+    //   vector: embeddings,
+    //   includeMetadata: true,
+    // });
+    return queryResponse.matches || [];
   } catch (error) {
     console.log("error querying embeddings", error);
     throw error;
@@ -28,6 +35,7 @@ export async function getMatchesFromEmbeddings(
 export async function getContext(query: string, fileKey: string) {
   const queryEmbeddings = await getEmbeddings(query);
   const matches = await getMatchesFromEmbeddings(queryEmbeddings, fileKey);
+
   const qualifyingDocs = matches.filter(
     (match) => match.score && match.score > 0.7
   );

@@ -14,14 +14,14 @@ const SubscriptionButton = (props: Props) => {
       const response = await axios.get("/api/stripe");
       window.location.href = response.data.url;
     } catch (error) {
-      console.error(error);
+      console.error(error, "subscription button error");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <Button disabled={loading} onClick={handleSubscription}>
+    <Button disabled={loading} onClick={handleSubscription} variant="outline">
       {props.isPro ? "Manage Subscriptions" : "Get Pro"}
     </Button>
   );

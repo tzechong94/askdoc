@@ -23,6 +23,7 @@ const FileUpload = () => {
         file_key,
         file_name,
       });
+      console.log("file_key", file_key);
       return response.data;
     },
   });
@@ -30,7 +31,7 @@ const FileUpload = () => {
     accept: { "application/pdf": [".pdf"] },
     maxFiles: 1,
     onDrop: async (acceptedFiles) => {
-      console.log(acceptedFiles);
+      console.log(acceptedFiles, "accepted file");
       const file = acceptedFiles[0];
       if (file.size > 10 * 1024 * 1024) {
         // bigger than 10mb
@@ -56,7 +57,7 @@ const FileUpload = () => {
         });
         console.log("data", data);
       } catch (err) {
-        console.log(err);
+        console.log(err, "on drop error");
       } finally {
         setUploading(false);
       }

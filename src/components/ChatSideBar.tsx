@@ -17,17 +17,6 @@ type Props = {
 const ChatSideBar = ({ chats, chatId, isPro }: Props) => {
   const [loading, setLoading] = React.useState(false);
 
-  const handleSubscription = async () => {
-    try {
-      setLoading(true);
-      const response = await axios.get("/api/stripe");
-      window.location.href = response.data.url;
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  };
   return (
     <div className="w-full h-screen p-4 text-gray-200 bg-gray-900">
       <Link href="/">
@@ -51,11 +40,7 @@ const ChatSideBar = ({ chats, chatId, isPro }: Props) => {
                 {chat.pdfName}
               </p>
               <div className="absolute bottom-4 left-4">
-                <div className="flex items-center gap-2 text-sm text-slate-500 flex-wrap">
-                  <Link href="/">Home</Link>
-                  <Link href="/">Source</Link>
-                  {/* stripe button */}
-                </div>
+                <div className="flex items-center gap-2 text-sm text-slate-500 flex-wrap"></div>
                 <SubscriptionButton isPro={isPro} />
               </div>
             </div>

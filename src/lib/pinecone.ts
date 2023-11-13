@@ -1,8 +1,4 @@
-import {
-  Pinecone,
-  PineconeRecord,
-  RecordMetadata,
-} from "@pinecone-database/pinecone";
+import { Pinecone, PineconeRecord } from "@pinecone-database/pinecone";
 import { downloadFromS3 } from "./s3-server";
 import { PDFLoader } from "langchain/document_loaders/fs/pdf";
 import md5 from "md5";
@@ -23,63 +19,38 @@ export const getPineconeClient = () => {
 type PDFPage = {
   pageContent: string;
   metadata: {
-    loc: { pageNumber: number };
+    loc: { pageNumber: number; fileKey: string };
   };
 };
-
-// export async function loadS3IntoPinecone(fileKey: string) {
-//   // 1. obtain the pdf -> downlaod and read from pdf
-//   console.log("downloading s3 into file system");
-//   const file_name = await downloadFromS3(fileKey);
-//   if (!file_name) {
-//     throw new Error("could not download from s3");
-//   }
-//   console.log("loading pdf into memory" + file_name);
-//   const loader = new PDFLoader(file_name);
-//   const pages = (await loader.load()) as PDFPage[];
-
-//   // 2. split and segment the pdf
-//   const documents = await Promise.all(pages.map(prepareDocument));
-
-//   // 3. vectorise and embed individual documents
-//   const vectors = await Promise.all(documents.flat().map(embedDocument));
-
-//   // 4. upload to pinecone
-//   const client = await getPineconeClient();
-//   const pineconeIndex = await client.index("chatpdf");
-//   const namespace = pineconeIndex.namespace(convertToAscii(fileKey));
-
-//   console.log("inserting vectors into pinecone");
-//   await namespace.upsert(vectors);
-
-//   return documents[0];
-// }
 
 export async function loadS3IntoPinecone(fileKey: string) {
   console.log("downloading s3 into file system");
   const file_name = await downloadFromS3(fileKey);
   if (!file_name) throw new Error("could not download file from s3");
   const loader = new PDFLoader(file_name);
+  console.log(loader, "loader");
   const pages = (await loader.load()) as PDFPage[];
+  console.log(pages, "pages");
+  const documents = await Promise.all(
+    pages.map((page) => prepareDocument(page, fileKey))
+  );
 
-  const documents = await Promise.all(pages.map(prepareDocument));
-
-  const vectors = await Promise.all(documents.flat().map(embedDocument));
+  const vectors = await Promise.all(
+    documents.flat().map((doc) => embedDocument(doc, fileKey))
+  );
 
   const client = await getPineconeClient();
-  const pineconeIndex = client.Index("chatpdf");
+  const pineconeIndex = await client.index("chatpdf");
 
   console.log("Inserting vectors into pinecone");
-  // const request = {
-  //   vectors,
-  // };
-  await pineconeIndex.upsert(vectors);
+  const request = vectors;
+  await pineconeIndex.upsert(request);
   console.log("Inserted vectors into pinecone");
 
   return documents[0];
 }
 
-async function embedDocument(doc: Document) {
+async function embedDocument(doc: Document, fileKey: string) {
   try {
     const embeddings = await getEmbeddings(doc.pageContent);
     const hash = md5(doc.pageContent);
@@ -90,8 +61,9 @@ async function embedDocument(doc: Document) {
       metadata: {
         text: doc.metadata.text,
         pageNumber: doc.metadata.pageNumber,
+        fileKey,
       },
-    } as PineconeRecord<RecordMetadata>;
+    } as PineconeRecord;
   } catch (error) {
     console.log("error embedding document", error);
     throw error;
@@ -103,7 +75,8 @@ export const truncateStringByBytes = (str: string, bytes: number) => {
   return new TextDecoder("utf-8").decode(enc.encode(str).slice(0, bytes));
 };
 
-async function prepareDocument(page: PDFPage) {
+async function prepareDocument(page: PDFPage, fileKey: string) {
+  console.log(page, "page in preparedoc");
   let { pageContent, metadata } = page;
   pageContent = pageContent.replace(/\n/g, "");
   // split the docs
@@ -114,6 +87,7 @@ async function prepareDocument(page: PDFPage) {
       metadata: {
         pageNumber: metadata.loc.pageNumber,
         text: truncateStringByBytes(pageContent, 36000),
+        fileKey,
       },
     }),
   ]);

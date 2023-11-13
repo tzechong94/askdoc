@@ -18,7 +18,7 @@ export async function POST(req: Request) {
       process.env.STRIPE_WEBHOOK_SIGNING_SECRET as string
     );
   } catch (error) {
-    console.error(error);
+    console.error(error, "error in stripe webhook post");
     return new NextResponse("webhook error", { status: 400 });
   }
 

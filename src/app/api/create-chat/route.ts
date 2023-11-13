@@ -15,7 +15,7 @@ export async function POST(req: Request, res: Response) {
   try {
     const body = await req.json();
     const { file_key, file_name } = body;
-    console.log(file_key, file_name);
+    console.log(file_key, file_name, "file key filename");
     await loadS3IntoPinecone(file_key);
     const chat_id = await db
       .insert(chats)
@@ -35,7 +35,7 @@ export async function POST(req: Request, res: Response) {
       { status: 200 }
     );
   } catch (error) {
-    console.error(error);
+    console.error(error, "error");
     return NextResponse.json(
       {
         error: "internal server error",
