@@ -19,12 +19,6 @@ export async function getMatchesFromEmbeddings(
       includeMetadata: true,
     });
 
-    // const namespace = pineconeIndex.namespace(convertToAscii(fileKey));
-    // const queryResult = await namespace.query({
-    //   topK: 5,
-    //   vector: embeddings,
-    //   includeMetadata: true,
-    // });
     return queryResponse.matches || [];
   } catch (error) {
     console.log("error querying embeddings", error);
