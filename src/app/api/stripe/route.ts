@@ -44,7 +44,7 @@ export async function GET() {
           price_data: {
             currency: "USD",
             product_data: {
-              name: "chatPDF pro",
+              name: "AskDoc pro",
               description: "Unlimited PDF sessions!",
             },
             unit_amount: 2000,

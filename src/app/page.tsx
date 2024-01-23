@@ -26,7 +26,9 @@ export default async function Home() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
         <div className="flex flex-col items-center text-center">
           <div className="flex items-center">
-            <h1 className="mr-3 text-5xl font-semibold">Chat with any PDF</h1>
+            <h1 className="mr-3 text-5xl font-semibold">
+              AskDoc about your report
+            </h1>
             <UserButton afterSignOutUrl="/" />
           </div>
           <div className="flex mt-2">
@@ -34,18 +36,21 @@ export default async function Home() {
               <>
                 <Link href={`/chat/${firstChat.id}`}>
                   <Button>
-                    Go to Chats <ArrowRight className="ml-2" />
+                    Ask Now <ArrowRight className="ml-2" />
                   </Button>
                 </Link>
-                <div className="ml-3">
+                {/* <div className="ml-3">
                   <SubscriptionButton isPro={isPro} />
-                </div>
+                </div> */}
               </>
             )}
           </div>
-          <p className="max-w-xl mt-1 text-lg text-slate-600">
-            Join millions of students, researchers and professionals to
-            instantly answer questions with AI.
+          <p className="max-w-full mt-1 text-lg text-slate-600 mt-4">
+            At AskDoc, we&apos;ve harnessed the power of artificial intelligence
+            to revolutionize the way you interact with your health reports. Our
+            cutting-edge AI technology reads and analyzes your medical reports,
+            providing you with valuable insights and facilitating personalized
+            health conversations.
           </p>
           <div className="w-full mt-4">
             {isAuth ? (

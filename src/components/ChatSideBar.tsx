@@ -3,7 +3,7 @@ import { DrizzleChat } from "@/lib/db/schema";
 import Link from "next/link";
 import React from "react";
 import { Button } from "./ui/button";
-import { MessageCircle, PlusCircle } from "lucide-react";
+import { ArrowLeft, MessageCircle, PlusCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import axios from "axios";
 import SubscriptionButton from "./SubscriptionButton";
@@ -39,13 +39,15 @@ const ChatSideBar = ({ chats, chatId, isPro }: Props) => {
               <p className="w-full overflow-hidden text-sm truncate whitespace-nowrap text-ellipsis">
                 {chat.pdfName}
               </p>
-              <div className="absolute bottom-4 left-4">
-                <div className="flex items-center gap-2 text-sm text-slate-500 flex-wrap"></div>
-                <SubscriptionButton isPro={isPro} />
-              </div>
             </div>
           </Link>
         ))}
+        <Link href="/" className="absolute bottom-4 left-4">
+          <Button className="w-full border-solid border-white border">
+            <ArrowLeft className="" />
+            Back
+          </Button>
+        </Link>
       </div>
     </div>
   );
