@@ -77,7 +77,9 @@ const FileUpload = () => {
           <>
             {/* loading state */}
             <Loader2 className="h-10 w-10 text-blue-500 animate-spin" />
-            <p className="mt-t text-sm text-slate-400">Spilling Tea to GPT</p>
+            <p className="mt-t text-sm text-slate-400">
+              Reading your report...
+            </p>
           </>
         ) : (
           <>
