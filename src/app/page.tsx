@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { UserButton, auth } from "@clerk/nextjs";
 import Link from "next/link";
-import { ArrowRight, LogIn } from "lucide-react";
+import { ArrowRight, LogIn, Space } from "lucide-react";
 import FileUpload from "@/components/FileUpload";
 import { db } from "@/lib/db";
 import { eq } from "drizzle-orm";
@@ -37,6 +37,12 @@ export default async function Home() {
                 <Link href={`/chat/${firstChat.id}`}>
                   <Button>
                     Ask Now <ArrowRight className="ml-2" />
+                  </Button>
+                </Link>
+                &nbsp;
+                <Link href={`/ask/${firstChat.id}`}>
+                  <Button>
+                    Symtoms How <ArrowRight className="ml-2" />
                   </Button>
                 </Link>
                 {/* <div className="ml-3">
