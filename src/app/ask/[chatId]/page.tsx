@@ -1,5 +1,5 @@
 import ChatComponent from "@/components/ChatComponent";
-import SymtomCheckerHistory from "@/components/SymtomCheckerHistory";
+import SymptomsChat from "@/components/SymptomsChat";
 import PDFViewer from "@/components/PDFViewer";
 import { db } from "@/lib/db";
 import { chats } from "@/lib/db/schema";
@@ -35,14 +35,6 @@ const ChatPage = async ({ params: { chatId } }: Props) => {
   return (
     <div className="flex max-h-screen overflow-scroll">
       <div className="flex w-full max-h-screen overflow-scroll">
-        {/* chat sidebar */}
-        <div className="flex-[1] max-w-xs">
-          <SymtomCheckerHistory
-            chats={_chats}
-            chatId={parseInt(chatId)}
-            isPro={isPro}
-          />
-        </div>
 
         {/* Content Section */}
         <div className="flex-[3] border-l-4 border-l-slate-200">
@@ -59,7 +51,7 @@ const ChatPage = async ({ params: { chatId } }: Props) => {
 
           {/* Chat Component */}
           <div>
-            <ChatComponent chatId={parseInt(chatId)} />
+            <SymptomsChat chatId={parseInt(chatId)} />
           </div>
 
           {/* Fine Print */}

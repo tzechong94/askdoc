@@ -39,8 +39,7 @@ const SymtomCheckerHistory = ({ chats, chatId, isPro }: Props) => {
               <p className="w-full overflow-hidden text-sm truncate whitespace-nowrap text-ellipsis">
                 {chat.pdfName}
               </p>
-              <button
-                className="ml-auto p-2 text-gray-400 hover:text-white"
+              <button className="ml-auto p-2 text-gray-400 hover:text-white"
                 // onClick={() => deleteChat{chat.id}}
               >
                 &#x2715; {/* Unicode character for '×' (multiplication sign) */}
