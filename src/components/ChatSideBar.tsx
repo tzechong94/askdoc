@@ -101,7 +101,7 @@ const ChatSideBar = ({ chats, chatId, isPro }: Props) => {
           className="w-full border-dashed border-white border"
         >
           <PlusCircle className="mr-2 w-4 h-4" />
-          New PDF
+          New Document
         </Button>
         {/* Hidden file input */}
         <input

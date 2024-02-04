@@ -22,9 +22,9 @@ export default async function Home() {
     }
   }
   return (
-    <div className="w-screen min-h-screen bg-gradient-to-r from-rose-100 to-teal-100">
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-        <div className="flex flex-col items-center text-center ">
+    <div className="fixed inset-0 bg-cover bg-center bg-no-repeat bg-[url('/images/Main.jpg')] overflow-y-scroll">
+      <div className="flex-1 max-w-6xl my-8 p-8 backdrop-filter backdrop-blur-lg bg-white/40" style={{ fontFamily: 'sans-serif' }}>
+        <div className="flex flex-col items-center text-center">
           <div className="flex items-center">
             <h1 className="mr-3 text-5xl font-bold mb-6">AskDoc</h1>
             <UserButton afterSignOutUrl="/" />
@@ -38,7 +38,7 @@ export default async function Home() {
                 "Our cutting-edge AI technology reads and analyzes your medical reports, providing you with valuable insights and facilitating personalized " +
                 "health conversations. Your health journey has never been more accessible, informative, and engaging!"}
           </p>
-          <div className="w-full mt-8">
+          <div className="w-full mt-8 max-w-5">
             {isAuth ? (
               <FileUpload />
             ) : (
