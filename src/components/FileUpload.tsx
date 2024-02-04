@@ -2,14 +2,53 @@
 import { uploadToS3 } from "@/lib/s3";
 import { useMutation } from "@tanstack/react-query";
 import { Inbox, Loader2 } from "lucide-react";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { useDropzone } from "react-dropzone";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import Tesseract from 'tesseract.js';
+import Tesseract from "tesseract.js";
 
-const { PDFDocument } = require('pdf-lib');
+const { PDFDocument } = require("pdf-lib");
+
+export const performOCR = async (file: any) => {
+  return new Promise((resolve, reject) => {
+    Tesseract.recognize(
+      file,
+      "eng", // Specify the language ('eng' for English)
+      {
+        logger: (info) => {
+          console.log(info); // Log progress and recognition information
+        },
+      }
+    )
+      .then(({ data: { text } }) => {
+        resolve(text);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+export const createPdfFromText = async (text: any) => {
+  const pdfDoc = await PDFDocument.create();
+  const page = pdfDoc.addPage();
+
+  // Adjust the font size and position as needed
+  page.drawText(text, { x: 50, y: page.getHeight() - 100 });
+
+  const pdfBytes = await pdfDoc.save();
+  return pdfBytes;
+};
+
+export const pdfBufferToBlob = (pdfBuffer: any) => {
+  return new Blob([pdfBuffer], { type: "application/pdf" });
+};
+
+export const blobToFile = (blob: any, fileName: any) => {
+  return new File([blob], fileName, { type: blob.type });
+};
 
 const FileUpload = () => {
   const router = useRouter();
@@ -31,9 +70,11 @@ const FileUpload = () => {
     },
   });
   const { getRootProps, getInputProps } = useDropzone({
-    accept: { 'application/pdf': ['.pdf'],
-              'image/jpeg': ['.jpeg'],
-              'image/png': ['.png'] },
+    accept: {
+      "application/pdf": [".pdf"],
+      "image/jpeg": [".jpeg"],
+      "image/png": [".png"],
+    },
     maxFiles: 1,
     onDrop: async (acceptedFiles) => {
       console.log(acceptedFiles, "accepted file");
@@ -45,24 +86,22 @@ const FileUpload = () => {
       }
       try {
         setUploading(true);
-        let data:any = null;
-        if(file.type.includes('pdf')){
+        let data: any = null;
+        if (file.type.includes("pdf")) {
           data = await uploadToS3(file);
-
         } else {
           const text = await performOCR(file);
-          console.log(text)
+          console.log(text);
           const pdfBytes = await createPdfFromText(text);
-          
+
           // Convert PDF buffer to Blob
           const pdfBlob = pdfBufferToBlob(pdfBytes);
 
           // Create File from Blob
-          const pdfFile = blobToFile(pdfBlob, file.name.split('.')[0]+'.pdf');
+          const pdfFile = blobToFile(pdfBlob, file.name.split(".")[0] + ".pdf");
           data = await uploadToS3(pdfFile);
-  
         }
-        
+
         if (!data?.file_key || !data.file_name) {
           toast.error("something went wrong");
           return;
@@ -86,46 +125,6 @@ const FileUpload = () => {
     },
   });
 
-  const performOCR = async (file:any) => {
-    return new Promise((resolve, reject) => {
-      Tesseract.recognize(
-        file,
-        'eng', // Specify the language ('eng' for English)
-        {
-          logger: (info) => {
-            console.log(info); // Log progress and recognition information
-          },
-        }
-      ).then(({ data: { text } }) => {
-        resolve(text);
-      }).catch((error) => {
-        reject(error);
-      });
-    });
-  };
-
-  const createPdfFromText = async (text:any) => {
-    const pdfDoc = await PDFDocument.create();
-    const page = pdfDoc.addPage();
-  
-    // Adjust the font size and position as needed
-    page.drawText(text, { x: 50, y: page.getHeight() - 100});
-  
-    const pdfBytes = await pdfDoc.save();
-    return pdfBytes;
-  };
-
-
-  const pdfBufferToBlob = (pdfBuffer:any) => {
-    return new Blob([pdfBuffer], { type: 'application/pdf' });
-  };
-  
-  const blobToFile = (blob:any, fileName:any) => {
-    return new File([blob], fileName, { type: blob.type });
-  };
-
-
-
   return (
     <div className="p-2 bg-white rounded-xl">
       <div
@@ -146,7 +145,9 @@ const FileUpload = () => {
         ) : (
           <>
             <Inbox className="w-10 h-10 text-blue-500" />
-            <p className="mt-2 text-sm text-slate-400">Drop PDF Report Here</p>
+            <p className="mt-2 text-sm text-slate-400">
+              Drop Your Medical Document Here
+            </p>
           </>
         )}
       </div>

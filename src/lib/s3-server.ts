@@ -17,7 +17,7 @@ export async function downloadFromS3(file_key: string): Promise<string> {
 
       const obj = await s3.getObject(params);
       const file_name = `/tmp/tzechong${Date.now().toString()}.pdf`;
-      // const file_name = `C:/Users/haiji/Documents/temp${Date.now().toString()}.pdf`;
+      console.log("FILE NAME" + file_name)
 
       if (obj.Body instanceof require("stream").Readable) {
         // AWS-SDK v3 has some issues with their typescript definitions, but this works
