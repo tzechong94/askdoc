@@ -34,10 +34,9 @@ const ChatPage = async () => {
   // const currentChat = _chats.find((chat) => chat.id === parseInt(chatId));
 
   return (
-    <div className="fixed inset-0 bg-cover bg-center bg-no-repeat bg-[url('/images/HeathTalk.jpg')] overflow-y-scroll">
-      {/* Content Section */}
+    <div className="fixed inset-0 bg-cover bg-center bg-no-repeat bg-[url('/images/HealthTalk.jpg')] overflow-y-scroll flex items-center justify-center">
       <div
-        className="flex-1 max-w-6xl my-8 p-4 backdrop-filter backdrop-blur-lg bg-white/40"
+        className="flex-1 max-w-6xl my-8 p-8 backdrop-filter backdrop-blur-lg bg-white/40 self-center"
         style={{ fontFamily: "sans-serif" }}
       >
         <Link href="/">
