@@ -22,8 +22,11 @@ export default async function Home() {
     }
   }
   return (
-    <div className="fixed inset-0 bg-cover bg-center bg-no-repeat bg-[url('/images/Main.jpg')] overflow-y-scroll">
-      <div className="flex-1 max-w-6xl my-8 p-8 backdrop-filter backdrop-blur-lg bg-white/40" style={{ fontFamily: 'sans-serif' }}>
+    <div className="fixed inset-0 bg-cover bg-center bg-no-repeat bg-[url('/images/Main.jpg')] overflow-y-scroll flex items-center justify-center">
+      <div
+        className="flex-1 max-w-6xl my-8 p-8 backdrop-filter backdrop-blur-lg bg-white/40 self-center"
+        style={{ fontFamily: "sans-serif" }}
+      >
         <div className="flex flex-col items-center text-center">
           <div className="flex items-center">
             <h1 className="mr-3 text-5xl font-bold mb-6">AskDoc</h1>
