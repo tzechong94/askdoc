@@ -8,7 +8,6 @@ import MessageList from "./MessageList";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Message } from "ai";
-import { boolean } from "drizzle-orm/mysql-core";
 
 type Props = { chatId: number };
 
@@ -46,7 +45,7 @@ const ChatComponent = ({ chatId }: Props) => {
   }, [messages]);
   return (
     <div
-      className="relative max-h-screen overflow-scroll"
+      className="relative overflow-y-scroll" style={{ maxHeight: 'calc(100vh - 300px)' }}
       id="message-container"
     >
       {/* header */}
