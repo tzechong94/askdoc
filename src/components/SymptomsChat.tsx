@@ -11,27 +11,24 @@ import { Message } from "ai";
 
 type Props = { chatId: number };
 
-const ChatComponent = ({ chatId }: Props) => {
+const SymptomsChat = () => {
   const shouldFetchData = false;
-  const { data, isLoading } = useQuery({
-    queryKey: ["chat", chatId],
-    queryFn: async () => {
-      if (shouldFetchData) {
-        const response = await axios.post<Message[]>("/api/get-messages", {
-          chatId,
-        });
-        return response.data;
-      }
-      return [];
-    },
-    enabled: false,
-  });
+  // const { data, isLoading } = useQuery({
+  //   queryKey: ["chat", chatId],
+  //   queryFn: async () => {
+  //     if (shouldFetchData) {
+  //       const response = await axios.post<Message[]>("/api/get-messages", {
+  //         chatId,
+  //       });
+  //       return response.data;
+  //     }
+  //     return [];
+  //   },
+  //   enabled: false,
+  // });
 
   const { input, handleInputChange, handleSubmit, messages } = useChat({
-    api: "/api/chat",
-    body: {
-      chatId,
-    },
+    api: "/api/ask",
     initialMessages: [],
   });
   React.useEffect(() => {
@@ -45,7 +42,8 @@ const ChatComponent = ({ chatId }: Props) => {
   }, [messages]);
   return (
     <div
-      className="relative overflow-y-scroll" style={{ maxHeight: 'calc(100vh - 300px)' }}
+      className="relative overflow-y-scroll"
+      style={{ maxHeight: "calc(100vh - 300px)" }}
       id="message-container"
     >
       {/* header */}
@@ -54,7 +52,7 @@ const ChatComponent = ({ chatId }: Props) => {
       </div>
 
       {/* message list */}
-      <MessageList messages={messages} isLoading={isLoading} />
+      <MessageList messages={messages} isLoading={false} />
 
       <form
         onSubmit={handleSubmit}
@@ -76,4 +74,4 @@ const ChatComponent = ({ chatId }: Props) => {
   );
 };
 
-export default ChatComponent;
+export default SymptomsChat;

@@ -26,21 +26,17 @@ export default async function Home() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
         <div className="flex flex-col items-center text-center ">
           <div className="flex items-center">
-            <h1 className="mr-3 text-5xl font-bold mb-6">
-              AskDoc
-            </h1>
+            <h1 className="mr-3 text-5xl font-bold mb-6">AskDoc</h1>
             <UserButton afterSignOutUrl="/" />
           </div>
           <p className="max-w-full mt-1 text-lg text-slate-600 mt-4">
-          {isAuth ? ( 
-            "Welcome! Explore your health insights by asking AI-Doc for personalized advice about your health concerns, symptoms, and medication queries. " +
-            "AskDoc, a combination of 'Doctor' and 'Document', is a wordplay that embodies our unique approach in using interactive AI to revolutionize " + 
-            "the way you interact with your medical documents. Go on, we accept documents in PDF or images in JPG and PNG!"
-          ) : (
-            "At AskDoc, we've harnessed the power of artificial intelligence to make healthcare communication more accessible and informative than ever before. " + 
-            "Our cutting-edge AI technology reads and analyzes your medical reports, providing you with valuable insights and facilitating personalized " + 
-            "health conversations. Your health journey has never been more accessible, informative, and engaging!"
-          )}
+            {isAuth
+              ? "Welcome! Explore your health insights by asking AI-Doc for personalized advice about your health concerns, symptoms, and medication queries. " +
+                "AskDoc, a combination of 'Doctor' and 'Document', is a wordplay that embodies our unique approach in using interactive AI to revolutionize " +
+                "the way you interact with your medical documents. Go on, we accept documents in PDF or images in JPG and PNG!"
+              : "At AskDoc, we've harnessed the power of artificial intelligence to make healthcare communication more accessible and informative than ever before. " +
+                "Our cutting-edge AI technology reads and analyzes your medical reports, providing you with valuable insights and facilitating personalized " +
+                "health conversations. Your health journey has never been more accessible, informative, and engaging!"}
           </p>
           <div className="w-full mt-8">
             {isAuth ? (
@@ -63,7 +59,7 @@ export default async function Home() {
                   </Button>
                 </Link>
                 &nbsp;
-                <Link href={`/ask/${firstChat.id}`}>
+                <Link href={`/ask`}>
                   <Button>
                     Ask AI-Doc <ArrowRight className="ml-2" />
                   </Button>
