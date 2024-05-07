@@ -33,7 +33,7 @@
     "openai-edge": "^1.2.2",
     "pdf-lib": "^1.17.1",
     "pdf-parse": "^1.1.1",
-    "pdfjs-dist": "^3.10.111",
+    "pdfjs-dist": "^4.2.67",
     "pdfkit": "^0.14.0",
     "pg": "^8.11.3",
     "react": "^18",
