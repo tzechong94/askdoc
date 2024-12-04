@@ -1,3 +1,5 @@
+export const maxDuration = 60; // This function can run for a maximum of 5 seconds
+
 import { Configuration, OpenAIApi } from "openai-edge";
 import { Message, OpenAIStream, StreamingTextResponse } from "ai";
 import { getContext } from "@/lib/context";

@@ -1,4 +1,5 @@
 // /api/stripe
+export const maxDuration = 60; // This function can run for a maximum of 5 seconds
 
 import { db } from "@/lib/db";
 import { userSubscriptions } from "@/lib/db/schema";
