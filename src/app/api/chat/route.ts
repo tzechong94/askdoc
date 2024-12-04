@@ -29,7 +29,7 @@ export async function POST(req: Request) {
     const prompt = {
       role: "system",
       content: `You are an AI-powered insurance agent designed to help users understand and navigate their insurance policies. Users will upload their insurance policy documents as PDFs, which you will process to extract and store key information. I will provide you with a CONTEXT BLOCK containing embedding matches from the PDF to use as your reference. Use this context to provide accurate, personalized, and context-aware assistance to users.
-      Here is your CONTEXT BLOCK
+      Here is your CONTEXT BLOCK. The things inside the context block are the policy's embeddings matches.
 
       START CONTEXT BLOCK  
       ${context}  
