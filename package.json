@@ -40,7 +40,7 @@
     "react-dom": "^18",
     "react-dropzone": "^14.2.3",
     "react-hot-toast": "^2.4.1",
-    "react-to-pdf": "^1.0.1",
+    "react-to-pdf": "^2.0.1",
     "stream": "^0.0.2",
     "stripe": "^14.3.0",
     "tailwind-merge": "^1.14.0",
